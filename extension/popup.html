@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="popup">
+      <h1>Step Recorder</h1>
+      <button id="toggleBtn" class="toggle">Start Recording</button>
+      <p class="status" id="statusText">Not recording</p>
+      <p class="count"><span id="stepCount">0</span> steps captured</p>
+      <div class="actions">
+        <button id="viewBtn">View Guide</button>
+        <button id="clearBtn" class="danger">Clear</button>
+      </div>
+
+      <button id="screenRecordBtn" class="secondary-action">Record Screen or Window</button>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Step Recorder — Screen Recording</title>
+    <link rel="stylesheet" href="recorder.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <h1>Screen Recorder</h1>
+        <span class="badge" id="badge">READY</span>
+      </header>
+
+      <div class="settings">
+        <label class="toggle-row">
+          <input type="checkbox" id="micToggle" checked />
+          Microphone
+        </label>
+        <label class="toggle-row">
+          <input type="checkbox" id="sysAudioToggle" />
+          System audio (browser/OS permitting)
+        </label>
+        <p class="warning" id="micWarning" hidden>
+          Microphone permission blocked — recording without mic audio.
+        </p>
+      </div>
+
+      <div class="record-area">
+        <button id="recordBtn" class="record-btn" title="Start recording">
+          <span class="ring" id="ring"></span>
+          <span class="dot"></span>
+        </button>
+        <div class="timer" id="timer">00:00:00</div>
+        <p class="hint">Choose "Entire Screen" in the picker to capture all windows at once.</p>
+      </div>
+
+      <section class="recordings">
+        <h2>Session Recordings</h2>
+        <ul id="recordingsList" class="recordings-list"></ul>
+      </section>
+
+      <footer class="statusbar" id="statusbar">Idle</footer>
+    </div>
+    <script src="recorder.js"></script>
+  </body>
+</html>

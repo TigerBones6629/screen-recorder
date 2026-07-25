@@ -27,3 +27,16 @@ npm run build
 - Use **Entire Screen** in the browser dialog to capture all windows
 - Screen recording permissions required on macOS (System Settings → Privacy & Security → Screen Recording)
 - .webm plays natively in Chrome/Firefox/Edge. Use VLC for desktop playback.
+
+## Extension: Step Recorder
+
+The `/extension` folder is a separate Chrome extension (Manifest V3) that
+captures clicks as a step-by-step guide, Scribe-style — screenshot, a
+highlight box on the clicked element, and an auto-generated caption per step.
+It also includes its own screen/window recorder (same getDisplayMedia +
+MediaRecorder approach as this app), since a browser extension can do things
+this web app can't — like listening for clicks across any tab.
+
+It's a separate architecture (extension manifest, content scripts, a service
+worker) rather than a shared codebase, so it lives in its own folder with its
+own README. See `extension/README.md` for setup and usage.

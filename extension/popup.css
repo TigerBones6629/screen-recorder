@@ -1,0 +1,99 @@
+:root {
+  --bg: #0f1115;
+  --panel: #181b21;
+  --border: #262b33;
+  --text: #e8e8e8;
+  --muted: #8a8f98;
+  --accent: #ff5c5c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  width: 260px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, "Segoe UI", sans-serif;
+}
+
+.popup {
+  padding: 16px;
+}
+
+h1 {
+  font-size: 14px;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.toggle {
+  width: 100%;
+  padding: 12px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.toggle.recording {
+  background: #444b58;
+}
+
+.status {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 10px 0 4px;
+  text-align: center;
+}
+
+.count {
+  font-size: 13px;
+  text-align: center;
+  margin: 0 0 14px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions button {
+  flex: 1;
+  padding: 8px;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.actions .danger:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.secondary-action {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  background: transparent;
+  color: var(--text);
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.secondary-action:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
