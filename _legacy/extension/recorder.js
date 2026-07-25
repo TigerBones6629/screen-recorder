@@ -23,6 +23,12 @@ let startTime = null;
 let timerInterval = null;
 const recordings = [];
 
+// Only present when this page is opened inside the desktop shell, not real
+// Chrome. Lets us save-and-convert to any format via ffmpeg in the main
+// process, instead of just handing back a .webm blob URL.
+const isElectron = !!window.electronDesktop;
+const FORMATS = isElectron ? ['mp4', 'mov', 'gif', 'webm'] : ['webm'];
+
 function setStatus(text) {
   statusbar.textContent = text;
 }
@@ -116,7 +122,7 @@ function handleStop() {
   const duration = Date.now() - startTime;
   const id = Date.now();
 
-  recordings.unshift({ id, url, duration, size: blob.size });
+  recordings.unshift({ id, url, blob, duration, size: blob.size, format: FORMATS[0] });
   renderRecordings();
   setStatus('Recording saved to this session.');
 }
@@ -142,15 +148,63 @@ function renderRecordings() {
     info.appendChild(title);
     info.appendChild(meta);
 
-    const link = document.createElement('a');
-    link.href = rec.url;
-    link.download = `recording-${rec.id}.webm`;
-    link.textContent = 'Download';
-
     li.appendChild(info);
-    li.appendChild(link);
+
+    if (isElectron) {
+      const controls = document.createElement('div');
+      controls.className = 'save-controls';
+
+      const select = document.createElement('select');
+      FORMATS.forEach((format) => {
+        const option = document.createElement('option');
+        option.value = format;
+        option.textContent = format.toUpperCase();
+        if (format === rec.format) option.selected = true;
+        select.appendChild(option);
+      });
+      select.addEventListener('change', () => {
+        rec.format = select.value;
+      });
+
+      const saveBtn = document.createElement('button');
+      saveBtn.textContent = 'Save As...';
+      saveBtn.addEventListener('click', () => saveElectronRecording(rec, saveBtn));
+
+      controls.appendChild(select);
+      controls.appendChild(saveBtn);
+      li.appendChild(controls);
+    } else {
+      const link = document.createElement('a');
+      link.href = rec.url;
+      link.download = `recording-${rec.id}.webm`;
+      link.textContent = 'Download';
+      li.appendChild(link);
+    }
+
     recordingsList.appendChild(li);
   });
+}
+
+async function saveElectronRecording(rec, saveBtn) {
+  const originalLabel = saveBtn.textContent;
+  saveBtn.disabled = true;
+  saveBtn.textContent = rec.format === 'webm' ? 'Saving...' : 'Converting...';
+  setStatus(`Saving recording as .${rec.format}...`);
+
+  try {
+    const arrayBuffer = await rec.blob.arrayBuffer();
+    const result = await window.electronDesktop.saveRecording(arrayBuffer, rec.format);
+    if (result.canceled) {
+      setStatus('Save canceled.');
+    } else {
+      setStatus(`Saved to ${result.filePath}`);
+    }
+  } catch (err) {
+    setStatus(`Could not save recording: ${err.message}`);
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.textContent = originalLabel;
+  }
 }
 
 recordBtn.addEventListener('click', () => {

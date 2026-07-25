@@ -1,0 +1,15 @@
+{
+  "name": "step-recorder-desktop",
+  "version": "0.1.0",
+  "description": "Desktop shell for Step Recorder — an embedded browser that loads the step-recorder Chrome extension and adds native screen/window recording with custom export formats.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.2.0"
+  },
+  "devDependencies": {
+    "electron": "^32.0.0"
+  }
+}

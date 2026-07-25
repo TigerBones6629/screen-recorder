@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="toolbar.css" />
+  </head>
+  <body>
+    <div class="toolbar">
+      <div class="nav-group">
+        <button id="backBtn" title="Back">&#8592;</button>
+        <button id="forwardBtn" title="Forward">&#8594;</button>
+        <button id="reloadBtn" title="Reload">&#8635;</button>
+        <input id="addressBar" class="address-bar" placeholder="Enter a URL and press Enter" />
+      </div>
+      <div class="record-group">
+        <span class="badge" id="stepBadge">STEPS: OFF</span>
+        <button id="toggleStepBtn">Start Step Recording</button>
+        <span class="count"><span id="stepCount">0</span> steps</span>
+        <button id="viewGuideBtn">View Guide</button>
+        <button id="clearStepsBtn" class="danger">Clear</button>
+        <button id="screenRecordBtn" class="accent">Record Screen</button>
+      </div>
+    </div>
+    <script src="toolbar.js"></script>
+  </body>
+</html>

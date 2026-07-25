@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Step Recorder",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Capture clicks as a step-by-step guide with screenshots, highlight boxes, and auto-generated captions.",
   "permissions": ["storage", "tabs", "activeTab"],
   "host_permissions": ["<all_urls>"],

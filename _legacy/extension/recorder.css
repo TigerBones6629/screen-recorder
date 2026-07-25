@@ -191,6 +191,37 @@ body {
   font-size: 12px;
 }
 
+.save-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.save-controls select {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 5px 6px;
+  font-size: 12px;
+}
+
+.save-controls button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.save-controls button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 .empty {
   font-size: 13px;
   color: var(--muted);

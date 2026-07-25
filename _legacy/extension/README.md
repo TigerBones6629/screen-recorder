@@ -47,6 +47,26 @@ MVP. Known limitations:
 - Captions are heuristic-based (element attributes/text), not AI-generated.
 - Only captures clicks, not typing, scrolling, or navigation-only steps.
 
+## Desktop shell
+
+`../desktop` wraps this extension in an Electron app so it's one native
+program instead of "install a Chrome extension + separately run a web app."
+It loads this extension folder directly (`session.loadExtension`, no code
+duplication) into an embedded browser window: `toolbar.html` (new, desktop
+only) becomes the app's toolbar with an address bar, and `recorder.html` /
+`viewer.html` open as their own windows exactly as they open as tabs in real
+Chrome. See `../desktop/README.md`.
+
+Two extension-only additions exist purely to support the desktop shell:
+
+- `toolbar.html` / `toolbar.js` / `toolbar.css` — a full-width toolbar
+  version of the popup, with an address bar. Not used by real Chrome
+  installs (those still get the normal toolbar-icon popup).
+- `recorder.js` feature-detects `window.electronDesktop` (only present when
+  opened inside the desktop shell) to switch from a plain `.webm` download
+  link to a save-as-any-format flow backed by ffmpeg in the Electron main
+  process.
+
 ## Roadmap
 
 - Combine step capture and screen recording into a single session, so one

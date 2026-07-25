@@ -40,3 +40,10 @@ this web app can't — like listening for clicks across any tab.
 It's a separate architecture (extension manifest, content scripts, a service
 worker) rather than a shared codebase, so it lives in its own folder with its
 own README. See `extension/README.md` for setup and usage.
+
+## Desktop app
+
+`/desktop` wraps the extension in Electron so it's one native app — a single
+window with its own toolbar, address bar, screen/window picker, and export to
+MP4/MOV/GIF/WebM (via a bundled ffmpeg) instead of loading an unpacked
+extension into Chrome by hand. See `desktop/README.md`.
