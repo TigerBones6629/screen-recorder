@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body>
+    <div class="panel">
+      <div class="row nav-row">
+        <button id="backBtn" title="Back">&#8592;</button>
+        <button id="forwardBtn" title="Forward">&#8594;</button>
+        <button id="reloadBtn" title="Reload">&#8635;</button>
+        <input id="addressBar" class="address-bar" placeholder="Enter a URL — only needed for Step Guide capture" />
+        <div class="session-controls">
+          <span class="timer" id="timer">00:00:00</span>
+          <button id="sessionBtn" class="session-btn">Start Session</button>
+        </div>
+      </div>
+
+      <div class="row groups-row">
+        <div class="group">
+          <label class="group-title">
+            <input type="checkbox" id="recordingToggle" checked />
+            Screen / Window Recording
+          </label>
+          <div class="group-controls">
+            <label><input type="checkbox" id="micToggle" checked /> Mic</label>
+            <label><input type="checkbox" id="sysAudioToggle" /> System audio</label>
+            <label><input type="checkbox" id="cursorZoomToggle" /> Cursor zoom</label>
+            <select id="formatSelect">
+              <option value="mp4">MP4</option>
+              <option value="mov">MOV</option>
+              <option value="gif">GIF</option>
+              <option value="webm">WEBM</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="group">
+          <label class="group-title">
+            <input type="checkbox" id="stepGuideToggle" />
+            Step Guide Capture
+          </label>
+          <div class="group-controls">
+            <span class="count"><span id="stepCount">0</span> steps</span>
+            <button id="viewGuideBtn">View Guide</button>
+            <button id="clearStepsBtn" class="danger">Clear</button>
+          </div>
+        </div>
+
+        <div class="group recordings-group">
+          <span class="group-title">Recordings</span>
+          <ul id="recordingsList" class="recordings-list"></ul>
+        </div>
+      </div>
+
+      <div class="statusbar" id="statusbar">Idle</div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

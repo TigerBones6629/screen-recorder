@@ -1,0 +1,15 @@
+{
+  "name": "step-recorder",
+  "version": "1.0.0",
+  "description": "A native screen recorder with an optional Scribe-style step guide mode, both able to run in the same session. Windows + macOS.",
+  "main": "main/index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.2.0"
+  },
+  "devDependencies": {
+    "electron": "^32.0.0"
+  }
+}
