@@ -74,15 +74,29 @@ npm install
 npm start
 ```
 
-## Known rough edges to expect on first real run
+## Status
 
-This was built and syntax-checked carefully, but not click-tested end to end
-— there's no display server available in the build environment to launch a
-real Electron GUI. Budget some time to debug, especially around:
+Built and click-tested on Windows: the app launches, the menu bar is
+hidden, the screen/window picker opens and records, and canceling the
+picker no longer crashes the main process (an actual bug found and fixed
+during testing — see git history). Electron's own installer had a separate,
+unrelated failure mode on Windows worth knowing about if `npm install`
+ever silently produces a broken `node_modules/electron` — its postinstall
+script can fail to fully download/extract the binary without reporting an
+error. If `npm start` throws "Electron failed to install correctly": delete
+`node_modules/electron`, reinstall just that package, and confirm
+`node_modules/electron/dist/electron.exe` (or the equivalent per platform)
+actually exists before assuming the reinstall worked.
 
-- The macOS system-audio loopback flow (genuinely finicky across Chromium
-  versions — see the comments in `main/index.js` and `renderer/app.js`).
-- `MediaRecorder` + `canvas.captureStream()` performance for the cursor-zoom
-  path on lower-end hardware.
-- No installer/packaging yet (`electron-builder` or similar) — this is an
-  `npm start` dev shell, not a distributable `.exe`/`.dmg`.
+Not yet verified:
+
+- **macOS system audio loopback** — implemented per Chromium's documented
+  approach (see `main/index.js` and `renderer/app.js`), but only tested on
+  Windows so far. Windows system audio capture works differently (no
+  loopback trick needed) and has been exercised; the macOS-specific path
+  has not.
+- **Cursor zoom** on real hardware over a longer recording — works in
+  short tests; `MediaRecorder` + `canvas.captureStream()` performance over
+  extended sessions on lower-end hardware is unverified.
+- **No installer/packaging yet** (`electron-builder` or similar) — this is
+  an `npm start` dev shell, not a distributable `.exe`/`.dmg`.
