@@ -2,22 +2,30 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../shared/theme.css" />
     <link rel="stylesheet" href="app.css" />
   </head>
   <body>
     <div class="panel">
-      <div class="row nav-row">
-        <button id="backBtn" title="Back">&#8592;</button>
-        <button id="forwardBtn" title="Forward">&#8594;</button>
-        <button id="reloadBtn" title="Reload">&#8635;</button>
-        <input id="addressBar" class="address-bar" placeholder="Enter a URL — only needed for Step Guide capture" />
+      <header class="titlebar">
+        <div class="brand">
+          <span class="brand-dot" id="brandDot"></span>
+          <span class="brand-name">Step Recorder</span>
+        </div>
         <div class="session-controls">
           <span class="timer" id="timer">00:00:00</span>
           <button id="sessionBtn" class="session-btn">Start Session</button>
         </div>
+      </header>
+
+      <div class="nav-row">
+        <button id="backBtn" title="Back">&#8592;</button>
+        <button id="forwardBtn" title="Forward">&#8594;</button>
+        <button id="reloadBtn" title="Reload">&#8635;</button>
+        <input id="addressBar" class="address-bar" placeholder="Browse a site here for Step Guide capture" />
       </div>
 
-      <div class="row groups-row">
+      <div class="groups-row">
         <div class="group">
           <label class="group-title">
             <input type="checkbox" id="recordingToggle" checked />
@@ -49,7 +57,7 @@
         </div>
 
         <div class="group recordings-group">
-          <span class="group-title">Recordings</span>
+          <span class="group-title plain">Recordings</span>
           <ul id="recordingsList" class="recordings-list"></ul>
         </div>
       </div>

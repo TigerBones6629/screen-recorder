@@ -1,15 +1,4 @@
-:root {
-  --bg: #0f1115;
-  --panel: #181b21;
-  --border: #262b33;
-  --text: #e8e8e8;
-  --muted: #8a8f98;
-  --accent: #ff5c5c;
-}
-
-* {
-  box-sizing: border-box;
-}
+/* Colors + box-sizing reset live in shared/theme.css, loaded before this file. */
 
 body {
   margin: 0;

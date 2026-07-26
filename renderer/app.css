@@ -1,15 +1,4 @@
-:root {
-  --bg: #0f1115;
-  --panel: #181b21;
-  --border: #262b33;
-  --text: #e8e8e8;
-  --muted: #8a8f98;
-  --accent: #ff5c5c;
-}
-
-* {
-  box-sizing: border-box;
-}
+/* Colors + box-sizing reset live in shared/theme.css, loaded before this file. */
 
 html,
 body {
@@ -27,21 +16,102 @@ body {
   height: 100%;
 }
 
-.row {
+/* --- Title bar: brand + session controls --- */
+
+.titlebar {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 14px;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
 }
 
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.brand-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: background 0.15s ease;
+}
+
+.brand-dot.active {
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(255, 92, 92, 0.2);
+  animation: brand-pulse 1.6s ease-out infinite;
+}
+
+@keyframes brand-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 92, 92, 0.35);
+  }
+  100% {
+    box-shadow: 0 0 0 8px rgba(255, 92, 92, 0);
+  }
+}
+
+.brand-name {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.session-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.timer {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 15px;
+  color: var(--muted);
+  min-width: 74px;
+  text-align: right;
+}
+
+.session-btn {
+  padding: 9px 20px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: filter 0.1s ease;
+}
+
+.session-btn:hover {
+  filter: brightness(1.08);
+}
+
+.session-btn.active {
+  background: #3a4150;
+}
+
+/* --- Address bar row --- */
+
 .nav-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
   border-bottom: 1px solid var(--border);
 }
 
 .nav-row button {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 7px;
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text);
@@ -49,49 +119,39 @@ body {
   font-size: 13px;
 }
 
+.nav-row button:hover {
+  border-color: var(--muted);
+}
+
 .address-bar {
   flex: 1;
   min-width: 0;
-  padding: 6px 10px;
-  border-radius: 6px;
+  padding: 8px 12px;
+  border-radius: 7px;
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text);
-  font-size: 12px;
+  font-size: 13px;
 }
 
-.session-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.address-bar::placeholder {
+  color: var(--muted);
 }
 
-.timer {
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-  font-size: 15px;
+.address-bar:focus {
+  outline: none;
+  border-color: var(--accent);
 }
 
-.session-btn {
-  padding: 8px 16px;
-  border-radius: 8px;
-  border: none;
-  background: var(--accent);
-  color: #fff;
-  font-weight: 700;
-  font-size: 12px;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.session-btn.active {
-  background: #444b58;
-}
+/* --- Settings groups --- */
 
 .groups-row {
   flex: 1;
+  display: flex;
   align-items: stretch;
   gap: 12px;
   overflow: hidden;
+  padding: 14px 18px;
 }
 
 .group {
@@ -99,55 +159,76 @@ body {
   min-width: 0;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px 12px;
+  border-radius: 10px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
   overflow: hidden;
 }
 
 .group-title {
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 700;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
+}
+
+.group-title.plain {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 11px;
+}
+
+.group-title input[type="checkbox"] {
+  accent-color: var(--accent);
+  width: 14px;
+  height: 14px;
 }
 
 .group-controls {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
 }
 
 .group-controls label {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   cursor: pointer;
+}
+
+.group-controls input[type="checkbox"] {
+  accent-color: var(--accent);
 }
 
 .group-controls select {
   background: var(--panel);
   color: var(--text);
   border: 1px solid var(--border);
-  border-radius: 5px;
-  padding: 3px 5px;
+  border-radius: 6px;
+  padding: 4px 6px;
   font-size: 11px;
 }
 
 .group-controls button {
-  padding: 4px 8px;
+  padding: 5px 10px;
   background: var(--panel);
   color: var(--text);
   border: 1px solid var(--border);
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 11px;
+}
+
+.group-controls button:hover {
+  border-color: var(--muted);
 }
 
 .group-controls .danger:hover {
@@ -166,7 +247,7 @@ body {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
 }
 
 .recording-item {
@@ -177,8 +258,8 @@ body {
   font-size: 11px;
   background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: 5px;
-  padding: 4px 6px;
+  border-radius: 6px;
+  padding: 5px 8px;
 }
 
 .recording-item .meta {
@@ -198,7 +279,7 @@ body {
   color: #fff;
   border: none;
   border-radius: 4px;
-  padding: 3px 6px;
+  padding: 4px 7px;
   font-size: 10px;
   cursor: pointer;
 }
@@ -212,8 +293,10 @@ body {
   font-size: 11px;
 }
 
+/* --- Status bar --- */
+
 .statusbar {
-  padding: 5px 14px;
+  padding: 6px 18px;
   font-size: 11px;
   color: var(--muted);
   border-top: 1px solid var(--border);

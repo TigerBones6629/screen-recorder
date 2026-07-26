@@ -1,7 +1,7 @@
 const { BrowserWindow, BrowserView, ipcMain } = require('electron');
 const path = require('path');
 
-const PANEL_HEIGHT = 230;
+const PANEL_HEIGHT = 262;
 
 let mainWindow = null;
 let panelView = null;
@@ -19,8 +19,13 @@ async function createMainWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 900,
+    minWidth: 860,
+    minHeight: 600,
     title: 'Step Recorder',
+    backgroundColor: '#0f1115',
+    autoHideMenuBar: true,
   });
+  mainWindow.removeMenu();
 
   panelView = new BrowserView({
     webPreferences: {

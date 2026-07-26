@@ -9,6 +9,7 @@ const addressBar = document.getElementById('addressBar');
 const timerEl = document.getElementById('timer');
 const sessionBtn = document.getElementById('sessionBtn');
 const statusbar = document.getElementById('statusbar');
+const brandDot = document.getElementById('brandDot');
 
 const recordingToggle = document.getElementById('recordingToggle');
 const micToggle = document.getElementById('micToggle');
@@ -31,7 +32,9 @@ addressBar.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') window.stepRecorder.navigate(addressBar.value.trim());
 });
 window.stepRecorder.onUrlChanged((url) => {
-  addressBar.value = url;
+  // Don't leak our own internal placeholder page into the address bar —
+  // show an empty, friendly field instead until the user actually browses.
+  addressBar.value = url.startsWith('file://') ? '' : url;
 });
 
 // --- Step guide count polling (no live push channel needed for this) ---
@@ -41,10 +44,6 @@ function refreshStepCount() {
     stepCountEl.textContent = count;
   });
 }
-
-stepGuideToggle.addEventListener('change', () => {
-  if (isSessionActive) return; // only takes effect at session start/stop
-});
 
 viewGuideBtn.addEventListener('click', () => window.stepRecorder.openViewer());
 clearStepsBtn.addEventListener('click', async () => {
@@ -98,6 +97,7 @@ function updateTimer() {
 function setSessionUI(active) {
   sessionBtn.textContent = active ? 'Stop Session' : 'Start Session';
   sessionBtn.classList.toggle('active', active);
+  brandDot.classList.toggle('active', active);
   [recordingToggle, micToggle, sysAudioToggle, cursorZoomToggle, formatSelect, stepGuideToggle].forEach((el) => {
     el.disabled = active;
   });
@@ -328,7 +328,8 @@ async function startSession() {
     }
     setStatus('Session running...');
   } catch (err) {
-    setStatus(`Could not start session: ${err.message}`);
+    const isCancel = err.name === 'NotAllowedError' || /Permission denied/i.test(err.message);
+    setStatus(isCancel ? 'Recording canceled.' : `Could not start session: ${err.message}`);
     await stopSession();
   }
 }
@@ -338,6 +339,7 @@ async function stopSession() {
   setSessionUI(false);
   clearInterval(timerInterval);
   clearInterval(stepPoll);
+  timerEl.textContent = '00:00:00';
 
   if (recordingToggle.checked) stopScreenRecording();
   if (stepGuideToggle.checked) {

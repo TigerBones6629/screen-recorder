@@ -65,6 +65,10 @@ screen.
 
 ## Run it
 
+Double-click `launch-windows.bat` (Windows) or `launch-macos.command`
+(macOS) — installs dependencies on first run, then starts the app. Or
+manually:
+
 ```bash
 npm install
 npm start

@@ -67,7 +67,11 @@ function registerDisplayMediaHandlers() {
       }
 
       pendingCallback = (source) => {
-        callback(source ? { video: source } : {});
+        // Passing {} to deny throws inside Electron itself once video has
+        // been requested (a known Electron rough edge — see
+        // electron/electron#47980). callback(undefined) is the version that
+        // actually rejects getDisplayMedia() cleanly instead of crashing.
+        callback(source ? { video: source } : undefined);
       };
       showPicker(BrowserWindow.getFocusedWindow());
     },
